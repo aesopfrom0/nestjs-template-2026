@@ -9,11 +9,11 @@ export const validateSchema = () =>
     JWT_ACCESS_TOKEN_EXPIRES_IN: Joi.string().default('7d'),
     JWT_REFRESH_TOKEN_EXPIRES_IN: Joi.string().default('30d'),
     ALLOWED_CORS_ORIGIN: Joi.string().optional(),
-    // Google OAuth (선택사항)
-    GOOGLE_CLIENT_ID: Joi.string().optional(),
-    GOOGLE_CLIENT_SECRET: Joi.string().optional(),
+    // Google OAuth (필수)
+    GOOGLE_CLIENT_ID: Joi.string().required(),
+    GOOGLE_CLIENT_SECRET: Joi.string().required(),
     GOOGLE_IOS_CLIENT_ID: Joi.string().optional(),
-    GOOGLE_CALLBACK_URL: Joi.string().optional(),
-    // Apple Sign In (선택사항)
-    APPLE_CLIENT_ID: Joi.string().optional(),
+    GOOGLE_CALLBACK_URL: Joi.string().required(),
+    // Apple Sign In (필수)
+    APPLE_CLIENT_ID: Joi.string().required(),
   });
