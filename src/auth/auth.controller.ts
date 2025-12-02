@@ -13,6 +13,8 @@ import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { GoogleAuthGuard } from './guards/google-auth.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { CurrentUser } from 'src/common/decorator/current-user.decorator';
+import { User } from 'src/users/schemas/user.schema';
 
 @Controller('auth')
 export class AuthController {
@@ -51,7 +53,7 @@ export class AuthController {
 
   @Get('me')
   @UseGuards(JwtAuthGuard)
-  getProfile(@Req() req) {
-    return req.user;
+  getProfile(@CurrentUser() user: User) {
+    return user;
   }
 }
