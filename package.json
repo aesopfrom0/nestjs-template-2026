@@ -12,6 +12,7 @@
   },
   "author": "Aesop",
   "private": true,
+  
   "license": "UNLICENSED",
   "scripts": {
     "prebuild": "rimraf dist",

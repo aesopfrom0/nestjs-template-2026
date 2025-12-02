@@ -1,4 +1,8 @@
-import { Injectable, ConflictException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  ConflictException,
+  NotFoundException,
+} from '@nestjs/common';
 import { UsersRepository } from './users.repository';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -10,7 +14,9 @@ export class UsersService {
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     // 비즈니스 로직: 이메일 중복 검사
-    const existingUser = await this.usersRepository.findByEmail(createUserDto.email);
+    const existingUser = await this.usersRepository.findByEmail(
+      createUserDto.email,
+    );
     if (existingUser) {
       throw new ConflictException('User with this email already exists');
     }
@@ -34,7 +40,10 @@ export class UsersService {
     return this.usersRepository.findByEmail(email);
   }
 
-  async findByProviderAndId(provider: string, providerId: string): Promise<User | null> {
+  async findByProviderAndId(
+    provider: string,
+    providerId: string,
+  ): Promise<User | null> {
     return this.usersRepository.findByProviderAndId(provider, providerId);
   }
 

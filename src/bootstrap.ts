@@ -16,7 +16,10 @@ export async function createApp(
 ): Promise<INestApplication> {
   // Express 인스턴스가 제공되면 사용하고 (Lambda), 아니면 새로 생성 (로컬)
   const app = options.expressApp
-    ? await NestFactory.create(AppModule, new ExpressAdapter(options.expressApp))
+    ? await NestFactory.create(
+        AppModule,
+        new ExpressAdapter(options.expressApp),
+      )
     : await NestFactory.create(AppModule);
 
   const configService = app.get(ConfigService);
