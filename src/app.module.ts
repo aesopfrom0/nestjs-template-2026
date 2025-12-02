@@ -21,7 +21,7 @@ import { AuthModule } from './auth/auth.module';
     }),
     DatabaseModule,
     UsersModule,
-    AuthModule,
+    AuthModule.forRoot(),
   ],
   controllers: [AppController],
   providers: [AppService],
