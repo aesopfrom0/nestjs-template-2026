@@ -8,7 +8,7 @@ import bcrypt from 'bcrypt';
 import { getDocumentId } from 'src/common/utils/mongodb.util';
 
 @Injectable()
-export class AuthService {
+export class AuthsService {
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService,

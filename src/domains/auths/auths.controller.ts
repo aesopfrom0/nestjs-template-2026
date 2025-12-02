@@ -8,7 +8,7 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-import { AuthService } from './auth.service';
+import { AuthsService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { GoogleAuthGuard } from './guards/google-auth.guard';
@@ -17,19 +17,19 @@ import { CurrentUser } from 'src/common/decorator/current-user.decorator';
 import { User } from 'src/domains/users/schemas/user.schema';
 
 @Controller('auth')
-export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+export class AuthsController {
+  constructor(private readonly authsService: AuthsService) {}
 
   @Post('register')
   @HttpCode(HttpStatus.CREATED)
   register(@Body() registerDto: RegisterDto) {
-    return this.authService.register(registerDto);
+    return this.authsService.register(registerDto);
   }
 
   @Post('login')
   @HttpCode(HttpStatus.OK)
   login(@Body() loginDto: LoginDto) {
-    return this.authService.login(loginDto);
+    return this.authsService.login(loginDto);
   }
 
   @Get('google')
@@ -41,7 +41,7 @@ export class AuthController {
   @Get('google/callback')
   @UseGuards(GoogleAuthGuard)
   async googleAuthCallback(@Req() req) {
-    return this.authService.googleLogin(req.user);
+    return this.authsService.googleLogin(req.user);
   }
 
   @Post('apple')

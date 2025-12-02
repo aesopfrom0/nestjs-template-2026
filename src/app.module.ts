@@ -4,9 +4,9 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import configuration from 'src/config/configuration';
 import { validateSchema } from 'src/config/validate-schema';
-import { DatabaseModule } from './provider/database/database.module';
+import { DatabaseModule } from './providers/database/database.module';
 import { UsersModule } from './domains/users/users.module';
-import { AuthModule } from './domains/auth/auth.module';
+import { AuthsModule } from './domains/auths/auths.module';
 
 @Module({
   imports: [
@@ -21,7 +21,7 @@ import { AuthModule } from './domains/auth/auth.module';
     }),
     DatabaseModule,
     UsersModule,
-    AuthModule,
+    AuthsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
