@@ -6,6 +6,8 @@ export const validateSchema = () =>
     PORT: Joi.number().default(26000),
     MONGODB_URI: Joi.string().required(),
     JWT_SECRET: Joi.string().required(),
+    JWT_ACCESS_TOKEN_EXPIRES_IN: Joi.string().default('7d'),
+    JWT_REFRESH_TOKEN_EXPIRES_IN: Joi.string().default('30d'),
     ALLOWED_CORS_ORIGIN: Joi.string().optional(),
     // Google OAuth (선택사항)
     GOOGLE_CLIENT_ID: Joi.string().optional(),
