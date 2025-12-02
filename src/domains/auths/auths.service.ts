@@ -34,10 +34,7 @@ export class AuthsService {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    const isPasswordValid = await bcrypt.compare(
-      loginDto.password,
-      user.password,
-    );
+    const isPasswordValid = await bcrypt.compare(loginDto.password, user.password);
     if (!isPasswordValid) {
       throw new UnauthorizedException('Invalid credentials');
     }
@@ -46,10 +43,7 @@ export class AuthsService {
   }
 
   async googleLogin(profile: any) {
-    let user = await this.usersService.findByProviderAndId(
-      AuthProvider.GOOGLE,
-      profile.providerId,
-    );
+    let user = await this.usersService.findByProviderAndId(AuthProvider.GOOGLE, profile.providerId);
 
     if (!user) {
       user = await this.usersService.create({
@@ -65,10 +59,7 @@ export class AuthsService {
   }
 
   async appleLogin(profile: any) {
-    let user = await this.usersService.findByProviderAndId(
-      AuthProvider.APPLE,
-      profile.providerId,
-    );
+    let user = await this.usersService.findByProviderAndId(AuthProvider.APPLE, profile.providerId);
 
     if (!user) {
       user = await this.usersService.create({

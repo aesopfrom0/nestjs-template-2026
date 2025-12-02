@@ -26,10 +26,7 @@ export class UsersRepository {
     return this.userModel.findOne({ email }).exec();
   }
 
-  async findByProviderAndId(
-    provider: string,
-    providerId: string,
-  ): Promise<User | null> {
+  async findByProviderAndId(provider: string, providerId: string): Promise<User | null> {
     return this.userModel.findOne({ provider, providerId }).exec();
   }
 
