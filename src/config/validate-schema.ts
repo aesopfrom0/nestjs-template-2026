@@ -1,0 +1,17 @@
+import * as Joi from 'joi';
+
+export const validateSchema = () =>
+  Joi.object({
+    NODE_ENV: Joi.string().valid('local', 'dev', 'prod').default('local'),
+    PORT: Joi.number().default(26000),
+    MONGODB_URI: Joi.string().required(),
+    JWT_SECRET: Joi.string().required(),
+    ALLOWED_CORS_ORIGIN: Joi.string().optional(),
+    // Google OAuth (선택사항)
+    GOOGLE_CLIENT_ID: Joi.string().optional(),
+    GOOGLE_CLIENT_SECRET: Joi.string().optional(),
+    GOOGLE_IOS_CLIENT_ID: Joi.string().optional(),
+    GOOGLE_CALLBACK_URL: Joi.string().optional(),
+    // Apple Sign In (선택사항)
+    APPLE_CLIENT_ID: Joi.string().optional(),
+  });
