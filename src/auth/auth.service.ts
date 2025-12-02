@@ -5,6 +5,7 @@ import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { AuthProvider, User } from 'src/users/schemas/user.schema';
 import bcrypt from 'bcrypt';
+import { getDocumentId } from 'src/common/utils/mongodb.util';
 
 @Injectable()
 export class AuthService {
@@ -33,7 +34,10 @@ export class AuthService {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    const isPasswordValid = await bcrypt.compare(loginDto.password, user.password);
+    const isPasswordValid = await bcrypt.compare(
+      loginDto.password,
+      user.password,
+    );
     if (!isPasswordValid) {
       throw new UnauthorizedException('Invalid credentials');
     }
@@ -78,11 +82,12 @@ export class AuthService {
   }
 
   private generateTokens(user: User) {
-    const payload = { sub: user._id.toString(), email: user.email };
+    const userId = getDocumentId(user);
+    const payload = { sub: userId, email: user.email };
     return {
       accessToken: this.jwtService.sign(payload),
       user: {
-        id: user._id.toString(),
+        id: userId,
         email: user.email,
         name: user.name,
         profileImage: user.profileImage,
