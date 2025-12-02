@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import configuration from 'src/config/configuration';
 import { validateSchema } from 'src/config/validate-schema';
 import { DatabaseModule } from './provider/database/database.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { DatabaseModule } from './provider/database/database.module';
       isGlobal: true,
     }),
     DatabaseModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
