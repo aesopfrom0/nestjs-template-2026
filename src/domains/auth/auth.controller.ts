@@ -14,7 +14,7 @@ import { LoginDto } from './dto/login.dto';
 import { GoogleAuthGuard } from './guards/google-auth.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { CurrentUser } from 'src/common/decorator/current-user.decorator';
-import { User } from 'src/users/schemas/user.schema';
+import { User } from 'src/domains/users/schemas/user.schema';
 
 @Controller('auth')
 export class AuthController {

@@ -1,9 +1,9 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { UsersService } from 'src/users/users.service';
+import { UsersService } from 'src/domains/users/users.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
-import { AuthProvider, User } from 'src/users/schemas/user.schema';
+import { AuthProvider, User } from 'src/domains/users/schemas/user.schema';
 import bcrypt from 'bcrypt';
 import { getDocumentId } from 'src/common/utils/mongodb.util';
 
