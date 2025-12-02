@@ -1,7 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import { Document } from 'mongoose';
+import { idTransformPlugin } from 'src/common/plugins/id-transform.plugin';
 
-export type UserDocument = HydratedDocument<User>;
+export type UserDocument = User &
+  Document & {
+    id: string; // virtual 필드
+  };
 
 export enum AuthProvider {
   LOCAL = 'local',
@@ -28,22 +32,21 @@ export class User {
 
   @Prop()
   providerId?: string; // OAuth provider user ID
-
-  @Prop({ default: Date.now })
-  createdAt: Date;
-
-  @Prop({ default: Date.now })
-  updatedAt: Date;
-
-  // MongoDB _id를 id로 변환하는 헬퍼
-  toJSON() {
-    const obj = this.toObject();
-    obj.id = obj._id.toString();
-    delete obj._id;
-    delete obj.__v;
-    delete obj.password; // 비밀번호는 응답에서 제거
-    return obj;
-  }
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
+
+// Plugin 적용: _id를 id로 자동 변환
+UserSchema.plugin(idTransformPlugin);
+
+// toJSON 시 비밀번호 제거
+UserSchema.set('toJSON', {
+  virtuals: true,
+  transform: (_doc: any, ret: any) => {
+    ret.id = ret._id.toString();
+    delete ret._id;
+    delete ret.__v;
+    delete ret.password; // 비밀번호는 응답에서 제거
+    return ret;
+  },
+});
