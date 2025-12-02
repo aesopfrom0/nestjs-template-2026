@@ -1,0 +1,43 @@
+service: nestjs-template-2026
+
+provider:
+  name: aws
+  runtime: nodejs24.x
+  region: ap-northeast-2
+  stage: ${opt:stage, 'dev'}
+  memorySize: 256
+  timeout: 30
+
+  environment:
+    MONGODB_URI: ${env:MONGODB_URI}
+    NODE_ENV: ${env:NODE_ENV}
+    JWT_SECRET: ${env:JWT_SECRET}
+    GOOGLE_CLIENT_ID: ${env:GOOGLE_CLIENT_ID}
+    GOOGLE_CLIENT_SECRET: ${env:GOOGLE_CLIENT_SECRET}
+    GOOGLE_IOS_CLIENT_ID: ${env:GOOGLE_IOS_CLIENT_ID}
+    GOOGLE_CALLBACK_URL: ${env:GOOGLE_CALLBACK_URL}
+    APPLE_CLIENT_ID: ${env:APPLE_CLIENT_ID}
+
+  httpApi:
+    cors: true
+
+functions:
+  app:
+    handler: dist/lambda.handler
+    events:
+      - httpApi:
+          path: /{proxy+}
+          method: any
+
+plugins:
+  - serverless-offline
+
+custom:
+  serverless-offline:
+    httpPort: 26000
+    noPrependStageInUrl: true
+    useChildProcesses: true
+    allowCache: true
+    printOutput: true
+    showDuration: true
+    verbose: true
